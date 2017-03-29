@@ -1,10 +1,11 @@
 from turtle import *
 import random
 
-WIDTH = 700
-HEIGHT = 700
+WIDTH = 1440
+HEIGHT = 900
 
-CORMAX = 320
+XMAX = WIDTH / 2 -100
+YMAX = HEIGHT / 2 -100
 
 PENSIZE_MIN = 2
 PENSIZE_MAX = 6
@@ -12,18 +13,18 @@ PENSIZE_MAX = 6
 ANGLE = 15
 
 COLOR = 25
-COLORVAL_MIN = 50
+COLORVAL_MIN = 75
 COLORVAL_MAX = 255
 
 DISTANCE_MIN = 1
 DISTANCE_MAX = 5
 
-NUM_TURTLES = random.randint(5,8)
+NUM_TURTLES = 3
 
 print( "Screen: " + str(WIDTH) + "x" + str(HEIGHT) )
 print( "Number of turtles: " + str(NUM_TURTLES) )
 print( "Turtle:" )
-print( "-- coordinate maximum: " + str(CORMAX) )
+print( "-- coordinate maximum: " + str(XMAX)+"*"+str(YMAX) )
 print( "-- pen size: " + str(PENSIZE_MIN) + "-" + str(PENSIZE_MAX) )
 print( "-- color: " + str(COLORVAL_MIN) + "-" + str(COLORVAL_MAX) + ", +-" + str(COLOR) )
 print( "-- distance: " + str(DISTANCE_MIN) + "-" + str(DISTANCE_MAX) )
@@ -46,15 +47,14 @@ class ranTurtle(Turtle):
 
         ## position
         self.penup()
-        axis = random.randint(1,2)
-        cord1 = random.choice([+CORMAX,-CORMAX])
-        cord2 = random.randint(-CORMAX, +CORMAX)                
-        if axis == 1:
-            self.setx( cord1 )
-            self.sety( cord2 )
+        
+        if random.randint(1,2) == 1:
+            self.setx( random.choice( [ -XMAX, +XMAX ] ) )
+            self.sety( random.randint(-YMAX,+YMAX) )
         else:
-            self.setx( cord2 )
-            self.sety( cord1 )        
+            self.setx( random.randint( -XMAX, +XMAX ) )
+            self.sety( random.choice( [ -YMAX, +YMAX ] ) )
+            
         self.pendown()
 
     def ranforward(self):
@@ -114,7 +114,7 @@ while(1):
         t.rancolor( )
         t.ranforward( )
 
-        if t.xcor() > +CORMAX: # right
+        if t.xcor() > +XMAX: # right
             
             if 0 <= t.heading() <= 90: #right-left
                 t.left( 5 )
@@ -122,7 +122,7 @@ while(1):
             elif 270 <= t.heading() <= 359: #right-right
                 t.right( 5 )
                 
-        elif t.xcor() < -CORMAX: # left
+        elif t.xcor() < -XMAX: # left
                
             if  180 <= t.heading() <= 270: #left-left
                 t.left( 5 )
@@ -130,7 +130,7 @@ while(1):
             elif 90 <= t.heading() <= 180: #right-right
                 t.right( 5 )
 
-        elif t.ycor() > +CORMAX: # top
+        elif t.ycor() > +YMAX: # top
 
             if 90 <= t.heading() <= 180: # top-left
                 t.left( 5 )
@@ -138,7 +138,7 @@ while(1):
             elif 0 <= t.heading() <= 90:
                 t.right( 5 )
 
-        elif t.ycor() < -CORMAX: # bottom
+        elif t.ycor() < -YMAX: # bottom
 
             if 270 <= t.heading() <= 359: # top-left
                 t.left( 5 )
